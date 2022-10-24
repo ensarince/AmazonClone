@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import "./styles/Home.css"
 import Product from './Product'
 import { Slide } from 'react-slideshow-image';
@@ -6,6 +6,16 @@ import 'react-slideshow-image/dist/styles.css'
 
 
 const Home = () => {
+
+  const [productData, setProductData] = useState([])
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products/')
+            .then(res=>res.json())
+            .then(json=>setProductData(json))
+  }, [])
+  
+  console.log(productData)
 
   const slideImages = [
     {
@@ -33,38 +43,14 @@ const Home = () => {
               ))} 
             </Slide>
           </div>
-          
-              <div className="home__row">
-                <Product title={"The lean startup"} price={29.99} 
-                image="https://images-eu.ssl-images-amazon.com/images/G/03/YourRewardsPage/XCM_Manual_1465493_2562828_4990546_379x304_1X_en_DE._SY304_CB609978595_.jpg"  
-                rating={5} 
-                />
-                <Product title={"Beal einfach seil"} price={129.99} 
-                image="https://m.media-amazon.com/images/I/81wEo5I+0SL._AC_UL320_.jpg"  
-                rating={3} 
-                />
-              </div>
 
-              <div className="home__row">
-                <Product title={"Ocun Klettern gurt"} price={69.99} 
-                image="https://m.media-amazon.com/images/I/517ced5dFNL._AC_UL320_.jpg"  
-                rating={4} 
-                />
-                <Product title={"Petzl Corax"} price={49.99} 
-                image="https://m.media-amazon.com/images/I/81AJ-+cZ4TL._AC_UL320_.jpg"  
-                rating={2} 
-                />
-                <Product title={"Harley Davidson Boots"} price={199.99} 
-                image="https://m.media-amazon.com/images/I/61Sr9CRyOPL._AC_UL320_.jpg"  
-                rating={4} 
-                />
-              </div>
-              
-              <div className="home__row">
-                <Product title={"Lenovo ThinkPad T460 Intel Core i5 Full HD (14 Zoll 256GB SSD Festplatte 8GB Speicher)"} price={329.99} 
-                image="https://m.media-amazon.com/images/I/714OOpZl4WL._AC_UY218_.jpg"  
-                rating={5} 
-                />
+              <div className="home__products">
+                {productData.map((item,key) => (
+                  <Product title={item.title} price={item.price} 
+                  image={item.image}  
+                  rating={Math.floor(item.rating.rate)} 
+                  />
+                ))}
               </div>
         </div>
     </div>

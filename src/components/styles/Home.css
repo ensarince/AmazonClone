@@ -7,18 +7,21 @@
 }   
 
 
-.home__row{
-     display: flex;
-     z-index: 1;
-     margin-left: 5px;
-     margin-right: 5px;
+.home__products{
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    gap: 5px;
+    justify-content: center;
+    z-index: 1;
+    margin-left: 5px;
+    margin-right: 5px;
 }
-
 
 .image__slider{
     width: 100%;
+    max-width: 1650px;
+    overflow: hidden;
     z-index: -1;
-    max-width: 1500px;
 }
 
 .each-slide{
@@ -30,6 +33,12 @@
     width: 100%;
 }
 
+
+@media only screen and (min-width: 1500px) {
+    .image__slider{
+        max-width: 1680px;
+    }
+  }
 
 @media only screen and (max-width: 1500px) {
     .image__slider{
